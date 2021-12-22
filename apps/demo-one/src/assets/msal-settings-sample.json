@@ -1,0 +1,10 @@
+{
+    "clientId": "",
+    "authority": "",
+    "cacheLocation": "",
+    "interactionType": "",
+    "protectedResourceMap": {},
+    "redirectUri": "",
+    "postLogoutRedirectUri": "",
+    "loginFailedRoute": ""
+}
