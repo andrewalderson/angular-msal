@@ -7,8 +7,10 @@ import {
   MsalGuard,
   MsalInterceptor,
   MsalModule,
+  MsalRedirectComponent,
   MsalService,
 } from '@azure/msal-angular';
+import { BrowserUtils } from '@azure/msal-browser';
 import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
 
@@ -16,7 +18,22 @@ import { NxWelcomeComponent } from './nx-welcome.component';
   declarations: [AppComponent, NxWelcomeComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([{ path: '', component: NxWelcomeComponent }]),
+    RouterModule.forRoot(
+      [
+        {
+          path: '_signin-callback',
+          component: MsalRedirectComponent,
+        },
+        { path: '', canActivate: [MsalGuard], component: NxWelcomeComponent },
+      ],
+      {
+        initialNavigation:
+          BrowserUtils.isInIframe() &&
+          !(window as unknown as { Cypress?: unknown }).Cypress
+            ? 'disabled'
+            : 'enabled',
+      }
+    ),
     MsalModule,
   ],
   providers: [
@@ -29,6 +46,6 @@ import { NxWelcomeComponent } from './nx-welcome.component';
     MsalGuard,
     MsalBroadcastService,
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent, MsalRedirectComponent],
 })
 export class AppModule {}
