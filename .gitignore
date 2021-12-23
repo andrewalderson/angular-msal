@@ -40,3 +40,4 @@ Thumbs.db
 
 .angular
 msal-settings.json
+cypress.env.json
