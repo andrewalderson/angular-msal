@@ -1,29 +1,14 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { login } = require('./b2c-auth');
-
 // eslint-disable-next-line @typescript-eslint/no-namespace
 declare namespace Cypress {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Chainable<Subject> {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    login(): Cypress.Chainable;
+    login(email: string, password: string): void;
   }
 }
-
-let cachedTokenExpiryTime = new Date().getTime();
-let cachedTokenResponse: unknown = null;
-
-Cypress.Commands.add('login', () => {
-  // Clear our cache if tokens are expired
-  if (cachedTokenExpiryTime <= new Date().getTime()) {
-    cachedTokenResponse = null;
-  }
-
-  return login(cachedTokenResponse).then((tokenResponse: unknown) => {
-    cachedTokenResponse = tokenResponse;
-    // Set expiry time to 50 minutes from now
-    cachedTokenExpiryTime = new Date().getTime() + 50 * 60 * 1000;
-  });
+//
+// -- This is a parent command --
+Cypress.Commands.add('login', (email, password) => {
+  console.log('Custom command example: Login', email, password);
 });
 
 //
