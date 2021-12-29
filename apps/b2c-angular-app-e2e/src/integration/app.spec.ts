@@ -2,7 +2,7 @@ import { getGreeting } from '../support/app.po';
 
 const msalConfig = Cypress.env('msal');
 
-describe('demo-one', () => {
+describe('b2c-angular-app', () => {
   beforeEach(() => {
     // Move this to a before bock in commands
     // intercept msal-settings and change cacheLocation to use local storage
@@ -23,6 +23,6 @@ describe('demo-one', () => {
   });
 
   it('should display welcome message', () => {
-    getGreeting().contains('Welcome demo-one');
+    getGreeting().contains('Welcome b2c-angular-app');
   });
 });

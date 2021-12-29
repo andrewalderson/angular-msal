@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'demo-one',
+  displayName: 'b2c-angular-app',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +8,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/apps/demo-one',
+  coverageDirectory: '../../coverage/apps/b2c-angular-app',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

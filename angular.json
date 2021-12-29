@@ -1,27 +1,27 @@
 {
   "version": 1,
   "projects": {
-    "demo-one": {
+    "b2c-angular-app": {
       "projectType": "application",
-      "root": "apps/demo-one",
-      "sourceRoot": "apps/demo-one/src",
+      "root": "apps/b2c-angular-app",
+      "sourceRoot": "apps/b2c-angular-app/src",
       "prefix": "msal",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/demo-one",
-            "index": "apps/demo-one/src/index.html",
-            "main": "apps/demo-one/src/main.ts",
-            "polyfills": "apps/demo-one/src/polyfills.ts",
-            "tsConfig": "apps/demo-one/tsconfig.app.json",
+            "outputPath": "dist/apps/b2c-angular-app",
+            "index": "apps/b2c-angular-app/src/index.html",
+            "main": "apps/b2c-angular-app/src/main.ts",
+            "polyfills": "apps/b2c-angular-app/src/polyfills.ts",
+            "tsConfig": "apps/b2c-angular-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "apps/demo-one/src/favicon.ico",
-              "apps/demo-one/src/assets"
+              "apps/b2c-angular-app/src/favicon.ico",
+              "apps/b2c-angular-app/src/assets"
             ],
-            "styles": ["apps/demo-one/src/styles.scss"],
+            "styles": ["apps/b2c-angular-app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -40,8 +40,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "apps/demo-one/src/environments/environment.ts",
-                  "with": "apps/demo-one/src/environments/environment.prod.ts"
+                  "replace": "apps/b2c-angular-app/src/environments/environment.ts",
+                  "with": "apps/b2c-angular-app/src/environments/environment.prod.ts"
                 }
               ],
               "outputHashing": "all"
@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "demo-one:build:production"
+              "browserTarget": "b2c-angular-app:build:production"
             },
             "development": {
-              "browserTarget": "demo-one:build:development"
+              "browserTarget": "b2c-angular-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,43 +72,43 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demo-one:build"
+            "browserTarget": "b2c-angular-app:build"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "apps/demo-one/src/**/*.ts",
-              "apps/demo-one/src/**/*.html"
+              "apps/b2c-angular-app/src/**/*.ts",
+              "apps/b2c-angular-app/src/**/*.html"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/demo-one"],
+          "outputs": ["coverage/apps/b2c-angular-app"],
           "options": {
-            "jestConfig": "apps/demo-one/jest.config.js",
+            "jestConfig": "apps/b2c-angular-app/jest.config.js",
             "passWithNoTests": true
           }
         }
       },
       "tags": []
     },
-    "demo-one-e2e": {
-      "root": "apps/demo-one-e2e",
-      "sourceRoot": "apps/demo-one-e2e/src",
+    "b2c-angular-app-e2e": {
+      "root": "apps/b2c-angular-app-e2e",
+      "sourceRoot": "apps/b2c-angular-app-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/demo-one-e2e/cypress.json",
-            "devServerTarget": "demo-one:serve:development"
+            "cypressConfig": "apps/b2c-angular-app-e2e/cypress.json",
+            "devServerTarget": "b2c-angular-app:serve:development"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "demo-one:serve:production"
+              "devServerTarget": "b2c-angular-app:serve:production"
             }
           }
         },
@@ -116,12 +116,12 @@
           "builder": "@nrwl/linter:eslint",
           "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": ["apps/demo-one-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": ["apps/b2c-angular-app-e2e/**/*.{js,ts}"]
           }
         }
       },
       "tags": [],
-      "implicitDependencies": ["demo-one"]
+      "implicitDependencies": ["b2c-angular-app"]
     },
     "shared-cypress-commands": {
       "root": "libs/shared/cypress-commands",
