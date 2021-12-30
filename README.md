@@ -1,105 +1,33 @@
+# Angular and MSAL
 
+This repository contains projects that do experiments with MSAL and Angular.
 
-# Msal
+Currently the projects are used to figure out how to authenticate with MSAL when writing Cypress tests.
+The repository contains a library with a Cypress command used to authenticate with Azure AD and Azure AD B2C
+using Resource Owner Password Credential flow and cache the tokens needed by MSAL to prevent the app being tested
+from atempting a redirect or popup login.
 
-This project was generated using [Nx](https://nx.dev).
+To use this repository a application and user need to be added to your AD and/or B2C instance. Ideally you
+would add 2 applications - one for the app to use and one for the Cypress tests to use. You could even
+use 2 seperate instances of AD or B2C for each.
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+For Azure AD B2C
 
-🔎 **Smart, Fast and Extensible Build System**
+1. Register and application for the Angular app to use. https://docs.microsoft.com/en-us/azure/active-directory-b2c/configure-authentication-sample-angular-spa-app
+2. Register and application for ROPC. https://docs.microsoft.com/en-us/azure/active-directory-b2c/add-ropc-policy?tabs=app-reg-ga&pivots=b2c-user-flow
+3. Add a user - must be a local user with no MFA
+4. Add an API and scopes https://docs.microsoft.com/en-us/azure/active-directory-b2c/add-web-api-application?tabs=app-reg-ga
 
-## Quick Start & Documentation
+For Azure AD
 
-[Nx Documentation](https://nx.dev/angular)
+Follow the same steps for B2C but in your AD tenant. The main difference between the 2 are the format of the authority and the scopes.
+In B2C the format of the authority is https://<tenant name>.b2clogin.com/tfp/<tenant domain name or id>/<policy name>
+In AD the format of the authority is https://login.microsoftonline.com/<tenant id>
 
-[10-minute video showing all Nx features](https://nx.dev/getting-started/intro)
+After these steps are complete:
+( see the MSAL js repos https://github.com/AzureAD/microsoft-authentication-library-for-js/samples for samples of how to configure the apps )
 
-[Interactive Tutorial](https://nx.dev/tutorial/01-create-application)
-
-## Adding capabilities to your workspace
-
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
-
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
-
-Below are our core plugins:
-
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
-
-There are also many [community plugins](https://nx.dev/community) you could add.
-
-## Generate an application
-
-Run `ng g @nrwl/angular:app my-app` to generate an application.
-
-> You can use any of the plugins above to generate applications as well.
-
-When using Nx, you can create multiple applications and libraries in the same workspace.
-
-## Generate a library
-
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are shareable across libraries and applications. They can be imported from `@msal/mylib`.
-
-## Development server
-
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng g component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
-
-
-
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+1. In the Angular apps copy the /assets/msal-settings.template.json file and rename it to msal-settings.json.
+2. Fill in the details for MSAL authentication.
+3. In the e2e apps copy the 'cypress.env.template.json' file in the root and rename it to 'cypress.env.json'
+4. Fill in the details for the ROPC flow
