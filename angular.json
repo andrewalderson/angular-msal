@@ -1,6 +1,128 @@
 {
   "version": 1,
   "projects": {
+    "ad-angular-app": {
+      "projectType": "application",
+      "root": "apps/ad-angular-app",
+      "sourceRoot": "apps/ad-angular-app/src",
+      "prefix": "msal",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/ad-angular-app",
+            "index": "apps/ad-angular-app/src/index.html",
+            "main": "apps/ad-angular-app/src/main.ts",
+            "polyfills": "apps/ad-angular-app/src/polyfills.ts",
+            "tsConfig": "apps/ad-angular-app/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/ad-angular-app/src/favicon.ico",
+              "apps/ad-angular-app/src/assets"
+            ],
+            "styles": ["apps/ad-angular-app/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/ad-angular-app/src/environments/environment.ts",
+                  "with": "apps/ad-angular-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "ad-angular-app:build:production"
+            },
+            "development": {
+              "browserTarget": "ad-angular-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ad-angular-app:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/ad-angular-app/src/**/*.ts",
+              "apps/ad-angular-app/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/ad-angular-app"],
+          "options": {
+            "jestConfig": "apps/ad-angular-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "ad-angular-app-e2e": {
+      "root": "apps/ad-angular-app-e2e",
+      "sourceRoot": "apps/ad-angular-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/ad-angular-app-e2e/cypress.json",
+            "devServerTarget": "ad-angular-app:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ad-angular-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/ad-angular-app-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["ad-angular-app"]
+    },
     "b2c-angular-app": {
       "projectType": "application",
       "root": "apps/b2c-angular-app",
