@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 /* eslint-disable */
@@ -843,7 +844,9 @@ nx affected:e2e</pre>
   encapsulation: ViewEncapsulation.None,
 })
 export class NxWelcomeComponent implements OnInit {
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.httpClient.get('/resources').subscribe();
+  }
 }

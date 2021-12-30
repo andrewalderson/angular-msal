@@ -34,6 +34,11 @@ function getMsalProviders(
     console.log(message);
   }
 
+  // there may be a better way to do this
+  // perhaps the tenant and policy could be seperated from the authority in msal config
+  // they could then could be appended to the authority for login
+  const tenant = config.authority.split('/').slice(-2)[0];
+
   const protectedResourceMap = new Map<string, Array<string>>();
   Object.keys(config.protectedResourceMap).forEach((key) => {
     protectedResourceMap.set(key, config.protectedResourceMap[key] || []);
@@ -67,7 +72,7 @@ function getMsalProviders(
       useValue: {
         interactionType: config.interactionType,
         authRequest: {
-          scopes: [],
+          scopes: [`https://${tenant}/${config.clientId}/read`],
         },
         loginFailedRoute: config.loginFailedRoute,
       },
