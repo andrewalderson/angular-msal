@@ -16,6 +16,8 @@ describe('b2c-angular-app', () => {
       delete req.headers['if-none-match']; // prevents 304 responses
 
       req.continue((res) => {
+        // if you change the structure of the 'msal-settings.json file you need to
+        // update the path to 'clientId' and 'authority' here
         res.body.clientId = msalConfig.clientId;
         res.body.authority = msalConfig.authority;
         res.body.protectedResourceMap = {
